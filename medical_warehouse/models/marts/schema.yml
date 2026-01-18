@@ -1,0 +1,99 @@
+version: 2
+
+models:
+    - name: dim_channels
+      description: Dimension table containing channel information and aggregated statistics
+      columns:
+          - name: channel_key
+            description: Surrogate key for the channel dimension
+            tests:
+                - not_null
+                - unique
+
+          - name: channel_name
+            description: Name of the Telegram channel
+            tests:
+                - not_null
+                - unique
+
+          - name: total_posts
+            description: Total number of posts from this channel
+            tests:
+                - not_null
+
+          - name: avg_views
+            description: Average views per post
+
+          - name: activity_level
+            description: Channel activity classification (high/medium/low)
+            tests:
+                - accepted_values:
+                      values: ["high", "medium", "low"]
+
+    - name: dim_dates
+      description: Date dimension table for time-based analysis
+      columns:
+          - name: date_key
+            description: Surrogate key for the date dimension
+            tests:
+                - not_null
+                - unique
+
+          - name: full_date
+            description: Full date value
+            tests:
+                - not_null
+                - unique
+
+          - name: year
+            description: Year component
+            tests:
+                - not_null
+
+          - name: is_weekend
+            description: Boolean flag for weekend dates
+            tests:
+                - not_null
+                - accepted_values:
+                      values: [true, false]
+
+    - name: fct_messages
+      description: Fact table containing message-level data with foreign keys to dimensions
+      columns:
+          - name: message_id
+            description: Primary key - unique message identifier
+            tests:
+                - not_null
+                - unique
+
+          - name: channel_key
+            description: Foreign key to dim_channels
+            tests:
+                - not_null
+                - relationships:
+                      to: ref('dim_channels')
+                      field: channel_key
+
+          - name: date_key
+            description: Foreign key to dim_dates
+            tests:
+                - not_null
+                - relationships:
+                      to: ref('dim_dates')
+                      field: date_key
+
+          - name: views
+            description: Number of views
+            tests:
+                - not_null
+
+          - name: forwards
+            description: Number of forwards
+            tests:
+                - not_null
+
+          - name: engagement_level
+            description: Engagement classification based on views
+            tests:
+                - accepted_values:
+                      values: ["high", "medium", "low", "minimal"]

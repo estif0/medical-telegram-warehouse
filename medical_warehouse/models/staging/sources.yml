@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+    - name: raw
+      description: Raw data loaded from the data lake
+      schema: raw
+      tables:
+          - name: telegram_messages
+            description: Raw Telegram messages scraped from medical business channels
+            columns:
+                - name: message_id
+                  description: Unique identifier for the message
+                  tests:
+                      - not_null
+                      - unique
+                - name: channel_name
+                  description: Name of the Telegram channel
+                  tests:
+                      - not_null
+                - name: message_date
+                  description: Date and time when the message was posted
+                  tests:
+                      - not_null
+                - name: views
+                  description: Number of views on the message
+                - name: forwards
+                  description: Number of times the message was forwarded
