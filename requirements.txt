@@ -1,0 +1,45 @@
+# Core dependencies
+python-dotenv
+
+# Telegram scraping
+telethon
+
+# Database
+psycopg2-binary
+sqlalchemy
+
+# dbt
+dbt-core
+dbt-postgres
+
+# YOLO and Computer Vision
+# ultralytics
+# opencv-python
+# pillow
+
+# API
+fastapi
+uvicorn
+pydantic
+
+# Orchestration
+dagster
+dagster-webserver
+
+# Data Analysis (for notebooks)
+pandas
+numpy
+plotly
+matplotlib
+seaborn
+jupyter
+
+# Testing
+pytest
+pytest-cov
+pytest-asyncio
+
+# Code Quality
+black
+flake8
+mypy
