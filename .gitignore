@@ -215,6 +215,10 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# Telethon session files (contain authentication tokens)
+*.session
+*.session-journal
+
 # Additional files and folders to ignore
 data/
 docs/local/
