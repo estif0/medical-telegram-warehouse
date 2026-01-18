@@ -2,76 +2,73 @@
 
 Executable scripts for running pipeline components.
 
+**Status:** ✅ Scraper & dbt scripts ready | ⏳ YOLO & API scripts planned
+
 ## Available Scripts
 
-### `run_scraper.py`
+### `run_scraper.py` ✅
 Extract messages and images from Telegram channels.
 
 ```bash
 python scripts/run_scraper.py --channels "CheMed123" "lobelia4cosmetics" --days 7
 ```
 
-**Options:**
-- `--channels` - Channel names to scrape (space-separated)
-- `--days` - Number of days to scrape (default: 30)
-- `--output` - Data lake output path (default: `data/raw/`)
-- `--log-level` - Log level: DEBUG, INFO, WARNING (default: INFO)
-
-### `load_raw_data.py`
+### `load_raw_data.py` ✅
 Load raw JSON data from data lake to PostgreSQL.
 
 ```bash
-python scripts/load_raw_data.py --source data/raw/telegram_messages/
+python scripts/load_raw_data.py --all
+# Or specific date: --date 2026-01-18
 ```
 
-**Options:**
-- `--source` - Path to raw data directory
-- `--incremental` - Only load new files (default: False)
-- `--validate` - Validate data before loading (default: True)
-
-### `run_yolo_detection.py`
-Run object detection on downloaded images.
+### `run_dbt.sh` ✅
+Helper script to run dbt commands with proper environment.
 
 ```bash
-python scripts/run_yolo_detection.py --input data/raw/images/ --output data/detections.csv
+./scripts/run_dbt.sh run   # Build models
+./scripts/run_dbt.sh test  # Run tests (39/39 passing)
 ```
 
-**Options:**
-- `--input` - Path to images directory
-- `--output` - CSV output file for results
-- `--model` - YOLO model size (nano, small, medium; default: nano)
-- `--confidence` - Confidence threshold (0.0-1.0; default: 0.5)
-- `--batch-size` - Batch processing size (default: 32)
-
-### `run_api.py`
-Start FastAPI development server.
+### `create_raw_table.py` ✅
+Create raw.telegram_messages table in PostgreSQL.
 
 ```bash
-python scripts/run_api.py --host 0.0.0.0 --port 8000
+python scripts/create_raw_table.py
 ```
 
-**Options:**
-- `--host` - Server host (default: 0.0.0.0)
-- `--port` - Server port (default: 8000)
-- `--reload` - Auto-reload on code changes (default: True)
-
-### `run_dagster.py`
-Launch Dagster dev server for pipeline orchestration.
+### `verify_models.py` ✅
+Verify dbt models and data in database.
 
 ```bash
-python scripts/run_dagster.py
+python scripts/verify_models.py
 ```
 
-Starts the Dagster UI at http://localhost:3000
+### `run_yolo_detection.py` ⏳
+Run object detection on images (Task 3 - planned).
 
-### `test_db_connection.py`
-Test PostgreSQL database connectivity.
+### `run_api.py` ⏳
+Start FastAPI development server (Task 4 - planned).
+
+### `run_dagster.py` ⏳
+Launch Dagster dev server (Task 5 - planned).
+
+## Current Pipeline
 
 ```bash
-python scripts/test_db_connection.py
-```
+# 1. Scrape data
+python scripts/run_scraper.py
 
-Displays database version and schemas.
+# 2. Load to database
+python scripts/create_raw_table.py
+python scripts/load_raw_data.py --all
+
+# 3. Build dbt models
+./scripts/run_dbt.sh run
+./scripts/run_dbt.sh test
+
+# 4. Verify
+python scripts/verify_models.py
+```
 
 ## Configuration
 
@@ -79,31 +76,6 @@ All scripts read from `.env`:
 ```
 TELEGRAM_API_ID=...
 POSTGRES_HOST=localhost
-POSTGRES_PORT=5432
 POSTGRES_DB=medical_warehouse
 ...
-```
-
-## Running All Scripts
-
-```bash
-# Full pipeline (development)
-python scripts/run_scraper.py
-python scripts/load_raw_data.py
-dbt run --project-dir medical_warehouse
-python scripts/run_yolo_detection.py
-python scripts/run_api.py
-```
-
-## Error Handling
-
-All scripts include:
-- Input validation
-- Comprehensive error messages
-- Logging to `logs/` directory
-- Recovery mechanisms where applicable
-
-Run with `--help` for detailed options:
-```bash
-python scripts/run_scraper.py --help
 ```

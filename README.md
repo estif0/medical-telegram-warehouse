@@ -70,17 +70,32 @@ medical-telegram-warehouse/
 └── logs/                  # Application logs
 ```
 
+## Current Status
+
+- ✅ **Task 1**: Scraper + Data Lake (17 messages, 3 channels)
+- ✅ **Task 2**: dbt Star Schema (39/39 tests passing)
+- ⏳ **Task 3**: YOLO Object Detection (next)
+- ⏳ **Task 4**: Analytical API
+- ⏳ **Task 5**: Pipeline Orchestration
+
+## Quick Commands
+
+```bash
+# Run scraper
+python scripts/run_scraper.py
+
+# Load data & build dbt models
+python scripts/load_raw_data.py --all
+./scripts/run_dbt.sh run
+
+# Run tests
+pytest tests/              # Python tests (38/38 passing)
+./scripts/run_dbt.sh test  # dbt tests (39/39 passing)
+```
+
 ## Development Workflow
 
 See [docs/local/steps.md](docs/local/steps.md) for detailed implementation steps.
-
-## Tasks Overview
-
-1. **Task 1**: Data Scraping & Collection (Telegram → Data Lake)
-2. **Task 2**: Data Modeling & Transformation (dbt Star Schema)
-3. **Task 3**: Data Enrichment (YOLO Object Detection)
-4. **Task 4**: Analytical API (FastAPI Endpoints)
-5. **Task 5**: Pipeline Orchestration (Dagster)
 
 ## Key Technologies
 

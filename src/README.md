@@ -2,14 +2,16 @@
 
 Modular, object-oriented Python code for the data pipeline.
 
+**Status:** ✅ Scraper & Database modules complete | ⏳ YOLO & Orchestration in progress
+
 ## Modules
 
-### `scraper/`
+### `scraper/` ✅
 Telegram data extraction and data lake management.
 
 **Files:**
-- `telegram_scraper.py` - Telethon-based Telegram message scraper
-- `data_lake_manager.py` - Data lake structure and file management
+- `telegram_scraper.py` - Telethon-based scraper (11 tests passing)
+- `data_lake_manager.py` - Data lake management (11 tests passing)
 
 **Usage:**
 ```python
@@ -23,12 +25,12 @@ dlm = DataLakeManager()
 dlm.save_message_json(messages, "channel_name")
 ```
 
-### `database/`
+### `database/` ✅
 PostgreSQL database operations.
 
 **Files:**
-- `db_connector.py` - Database connection and schema management
-- `data_loader.py` - Load data lake JSON files to PostgreSQL
+- `db_connector.py` - Connection & schema management (11 tests passing)
+- `data_loader.py` - JSON to PostgreSQL loader (16 tests passing)
 
 **Usage:**
 ```python
@@ -42,24 +44,21 @@ loader = DataLoader(db)
 loader.load_json_to_postgres("data/raw/telegram_messages/")
 ```
 
-### `yolo/`
-Object detection and image classification.
+### `yolo/` ⏳
+Object detection and image classification (Task 3 - in progress).
 
-**Files:**
+**Planned Files:**
 - `yolo_detector.py` - YOLOv8 object detection
-- `image_classifier.py` - Image categorization based on detections
-- `detection_manager.py` - Detection result storage and database integration
+- `image_classifier.py` - Image categorization
+- `detection_manager.py` - Detection result storage
 
 **Usage:**
 ```python
+# Coming soon in Task 3
 from src.yolo.yolo_detector import YOLODetector
-from src.yolo.image_classifier import ImageClassifier
 
 detector = YOLODetector(model="yolov8n.pt")
 results = detector.detect_objects("path/to/image.jpg")
-
-classifier = ImageClassifier()
-category = classifier.classify_image(results)
 ```
 
 ### `utils/`
@@ -70,21 +69,19 @@ Shared utilities and helpers.
 
 **Usage:**
 ```python
-from src.utils.logger import LoggerConfig
+from src.utils.logger import get_logger
 
-logger = LoggerConfig.get_logger(__name__)
+logger = get_logger(__name__)
 logger.info("Starting data pipeline...")
 ```
 
-### `orchestration/`
-Dagster pipeline definitions.
+### `orchestration/` ⏳
+Dagster pipeline definitions (Task 5 - planned).
 
-**Files:**
+**Planned Files:**
 - `assets.py` - Dagster assets
 - `jobs.py` - Dagster jobs
 - `schedules.py` - Pipeline schedules
-- `resources.py` - Shared resources
-- `repository.py` - Dagster repository
 
 ## Dependencies
 
