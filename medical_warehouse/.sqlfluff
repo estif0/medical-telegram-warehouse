@@ -1,0 +1,22 @@
+[sqlfluff]
+templater = dbt
+dialect = postgres
+max_line_length = 120
+indent_unit = space
+
+[sqlfluff:indentation]
+tab_space_size = 4
+indent_unit = space
+
+[sqlfluff:rules]
+capitalisation_policy = lower
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:L010]
+capitalisation_policy = lower
+
+[sqlfluff:rules:L014]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:L030]
+capitalisation_policy = lower

@@ -1,0 +1,52 @@
+version: 2
+
+models:
+    - name: stg_telegram_messages
+      description: Cleaned and typed Telegram messages from raw data
+      columns:
+          - name: message_id
+            description: Unique identifier for the message
+            tests:
+                - not_null
+                - unique
+
+          - name: channel_name
+            description: Cleaned channel name (lowercase, trimmed)
+            tests:
+                - not_null
+
+          - name: message_date
+            description: Date and time when the message was posted
+            tests:
+                - not_null
+
+          - name: message_text
+            description: Text content of the message
+
+          - name: message_length
+            description: Length of the message text in characters
+            tests:
+                - not_null
+
+          - name: has_media
+            description: Boolean flag indicating if message contains media
+            tests:
+                - not_null
+                - accepted_values:
+                      values: [true, false]
+
+          - name: views
+            description: Number of views on the message
+            tests:
+                - not_null
+
+          - name: forwards
+            description: Number of times the message was forwarded
+            tests:
+                - not_null
+
+          - name: content_type
+            description: Type of content (with_media or text_only)
+            tests:
+                - accepted_values:
+                      values: ["with_media", "text_only"]
