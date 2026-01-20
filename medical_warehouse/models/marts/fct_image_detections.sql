@@ -1,9 +1,9 @@
-"""
+/*
 Fact table for YOLO image detections.
 
 This model stores object detection results from YOLOv8 analysis,
 joined with channel and date dimensions for analytical queries.
-"""
+*/
 
 WITH detection_raw AS (
     SELECT
