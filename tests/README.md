@@ -2,19 +2,35 @@
 
 Unit and integration tests for all modules.
 
+**Status:** ✅ 79/79 tests passing
+
 ## Structure
 
 ```
 tests/
-├── test_smoke.py              # Basic smoke tests for all major components
-├── test_scraper.py           # Tests for telegram_scraper & data_lake_manager
-├── test_db_connector.py      # Tests for database connection
-├── test_data_loader.py       # Tests for data loading
-├── test_yolo_detector.py     # Tests for YOLO detection
-├── test_api.py               # Tests for API endpoints
-└── integration/
-    └── test_full_pipeline.py # End-to-end pipeline tests
+├── conftest.py                   # Pytest fixtures and configuration
+├── test_smoke.py                 # Basic smoke tests (1 test)
+├── test_data_lake_manager.py     # Data lake tests (10 tests)
+├── test_db_connector.py          # Database connection tests (11 tests)
+├── test_data_loader.py           # Data loading tests (16 tests)
+├── test_yolo_modules.py          # YOLO detector & classifier tests (14 tests)
+├── test_detection_manager.py     # Detection manager tests (12 tests)
+└── test_api.py                   # API endpoint tests (15 tests)
 ```
+
+## Test Results
+
+**Total:** 79 tests passing ✅
+
+| Module             | Tests | Status |
+| ------------------ | ----- | ------ |
+| Data Lake Manager  | 10    | ✅      |
+| Database Connector | 11    | ✅      |
+| Data Loader        | 16    | ✅      |
+| YOLO Modules       | 14    | ✅      |
+| Detection Manager  | 12    | ✅      |
+| API                | 15    | ✅      |
+| Smoke              | 1     | ✅      |
 
 ## Running Tests
 

@@ -2,13 +2,17 @@
 
 REST API for querying the Medical Telegram Warehouse and accessing analytical insights about Ethiopian medical business Telegram channels.
 
+**Status:** ✅ Complete - 15/15 tests passing
+
 ## Features
 
 - ✅ **Product Analytics**: Top mentioned medical products and trends
-- ✅ **Visual Content Statistics**: Image analysis and object detection insights  
-- ✅ **Channel Activity**: Daily metrics and engagement patterns
+- ✅ **Visual Content Statistics**: Image analysis and object detection insights (608 images)
+- ✅ **Channel Activity**: Daily metrics and engagement patterns (3 channels)
 - ✅ **Message Search**: Full-text search across all messages with filters
 - ✅ **Health Monitoring**: Database connection status and API health
+
+**Total Endpoints:** 8 analytical endpoints
 
 ## Structure
 
@@ -189,7 +193,8 @@ pytest tests/test_api.py -v
 - 15 comprehensive tests
 - Tests root endpoints, reports, channels, search
 - Tests validation and error handling
-- **13/15 tests passing** ✅
+- Tests OpenAPI documentation generation
+- **15/15 tests passing** ✅
 
 ## Architecture
 

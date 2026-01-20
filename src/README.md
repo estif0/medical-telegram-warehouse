@@ -2,7 +2,7 @@
 
 Modular, object-oriented Python code for the data pipeline.
 
-**Status:** ✅ Scraper & Database modules complete | ⏳ YOLO & Orchestration in progress
+**Status:** ✅ All modules complete - 79/79 tests passing
 
 ## Modules
 
@@ -44,21 +44,25 @@ loader = DataLoader(db)
 loader.load_json_to_postgres("data/raw/telegram_messages/")
 ```
 
-### `yolo/` ⏳
-Object detection and image classification (Task 3 - in progress).
+### `yolo/` ✅
+Object detection and image classification.
 
-**Planned Files:**
-- `yolo_detector.py` - YOLOv8 object detection
-- `image_classifier.py` - Image categorization
-- `detection_manager.py` - Detection result storage
+**Files:**
+- `yolo_detector.py` - YOLOv8 object detection (6 tests passing)
+- `image_classifier.py` - Image categorization (8 tests passing)
+- `detection_manager.py` - Detection result storage (12 tests passing)
 
 **Usage:**
 ```python
-# Coming soon in Task 3
 from src.yolo.yolo_detector import YOLODetector
+from src.yolo.image_classifier import ImageClassifier
 
-detector = YOLODetector(model="yolov8n.pt")
-results = detector.detect_objects("path/to/image.jpg")
+detector = YOLODetector(model_name="yolov8n.pt")
+detections = detector.detect_objects("image.jpg")
+
+classifier = ImageClassifier()
+category = classifier.classify_image(detections)
+print(f"Category: {category}")  # promotional, product_display, lifestyle, other
 ```
 
 ### `utils/`
@@ -75,13 +79,23 @@ logger = get_logger(__name__)
 logger.info("Starting data pipeline...")
 ```
 
-### `orchestration/` ⏳
-Dagster pipeline definitions (Task 5 - planned).
+### `orchestration/` ✅
+Dagster pipeline orchestration.
 
-**Planned Files:**
-- `assets.py` - Dagster assets
-- `jobs.py` - Dagster jobs
-- `schedules.py` - Pipeline schedules
+**Files:**
+- `assets.py` - Dagster assets (4 data pipeline steps)
+- `jobs.py` - Dagster jobs (4 pipeline configurations)
+- `schedules.py` - Pipeline schedules (3 automated schedules)
+- `resources.py` - Shared resources
+- `repository.py` - Dagster Definitions
+
+**Usage:**
+```bash
+# Start Dagster UI
+python scripts/run_dagster.py
+
+# Access at http://localhost:3000
+```
 
 ## Dependencies
 

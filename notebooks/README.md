@@ -12,7 +12,9 @@ Jupyter notebooks for data exploration, analysis, and demonstration.
 
 ## Notebooks
 
-### `01_data_exploration.ipynb`
+**Status:** 2/4 notebooks complete
+
+### `01_data_exploration.ipynb` ✅
 Raw data exploration and profiling.
 
 **Objectives:**
@@ -21,10 +23,9 @@ Raw data exploration and profiling.
 - Basic statistics (message count, date range, etc.)
 - Channel distribution
 
-**Prerequisites:**
-- Data loaded in data lake (`data/raw/`)
+**Data:** 3 channels scraped (CheMed123, lobelia4cosmetics, tikvahpharma)
 
-### `02_star_schema_analysis.ipynb`
+### `02_star_schema_analysis.ipynb` ✅
 Dimensional model analysis and star schema demonstration.
 
 **Objectives:**
@@ -33,11 +34,9 @@ Dimensional model analysis and star schema demonstration.
 - Demonstrate query patterns on star schema
 - Compare performance
 
-**Prerequisites:**
-- dbt models executed
-- Data in `marts` schema
+**Models:** 4 dbt models (1 staging, 3 marts)
 
-### `03_yolo_analysis.ipynb`
+### `03_yolo_analysis.ipynb` ⏳
 YOLO object detection results analysis.
 
 **Objectives:**
@@ -46,21 +45,18 @@ YOLO object detection results analysis.
 - Correlate visual content with engagement metrics
 - Identify patterns
 
-**Prerequisites:**
-- YOLO detection completed
-- Detection results in database
+**Data:** 608 images with detections available
 
-### `04_api_demo.ipynb`
+### `04_api_demo.ipynb` ⏳
 API endpoint demonstrations.
 
 **Objectives:**
 - Show real API requests and responses
-- Demonstrate all endpoints
+- Demonstrate all 8 endpoints
 - Example use cases
 - Response interpretation
 
-**Prerequisites:**
-- API server running
+**API:** FastAPI running at http://localhost:8000
 
 ## Running Notebooks
 

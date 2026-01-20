@@ -9,14 +9,30 @@ dbt project for transforming raw Telegram data into a star schema.
 ## Star Schema
 
 **Staging:**
-- `stg_telegram_messages` - Cleaned and typed raw data (17 rows)
+- `stg_telegram_messages` - Cleaned and typed raw data
 
 **Dimensions:**
-- `dim_channels` - Channel statistics (3 channels)
-- `dim_dates` - Date dimension (2,574 dates, 2020-2027)
+- `dim_channels` - Channel statistics (3 channels: CheMed123, lobelia4cosmetics, tikvahpharma)
+- `dim_dates` - Date dimension (2,574 dates covering 2020-2027)
 
-**Fact:**
-- `fct_messages` - Message-level data with engagement metrics (17 rows)
+**Facts:**
+- `fct_messages` - Message-level data with engagement metrics
+- `fct_image_detections` - YOLO detection results (608 images)
+
+## Data Pipeline
+
+Raw Data → Staging → Marts (Star Schema)
+
+```
+raw.telegram_messages
+    ↓
+staging.stg_telegram_messages
+    ↓
+    ├── marts.dim_channels
+    ├── marts.dim_dates
+    ├── marts.fct_messages
+    └── marts.fct_image_detections (joined with YOLO results)
+```
 
 ## Commands
 

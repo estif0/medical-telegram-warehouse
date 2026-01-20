@@ -27,7 +27,8 @@ from src.utils.logger import get_logger
 
 def setup_logging(log_level: str = "INFO") -> logging.Logger:
     """Set up logging configuration."""
-    return get_logger(__name__, log_level=log_level)
+    level = getattr(logging, log_level.upper())
+    return get_logger(__name__, level=level)
 
 
 def parse_arguments():
