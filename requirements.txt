@@ -1,3 +1,6 @@
+# PyTorch CPU-only index for faster installation
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 # Core dependencies
 python-dotenv
 
@@ -13,9 +16,11 @@ dbt-core
 dbt-postgres
 
 # YOLO and Computer Vision
-# ultralytics
-# opencv-python
-# pillow
+torch
+torchvision
+ultralytics
+opencv-python
+pillow
 
 # API
 fastapi
