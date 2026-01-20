@@ -101,10 +101,25 @@ class DetectionManager:
 
             # Write to CSV
             if csv_data:
-                fieldnames = list(csv_data[0].keys())
+                # Define all possible fieldnames to handle rows with and without detections
+                fieldnames = [
+                    "image_path",
+                    "channel_name",
+                    "message_id",
+                    "detected_class",
+                    "confidence",
+                    "bbox_x1",
+                    "bbox_y1",
+                    "bbox_x2",
+                    "bbox_y2",
+                    "total_objects",
+                    "timestamp",
+                ]
 
                 with open(output_path, "w", newline="") as f:
-                    writer = csv.DictWriter(f, fieldnames=fieldnames)
+                    writer = csv.DictWriter(
+                        f, fieldnames=fieldnames, extrasaction="ignore"
+                    )
                     writer.writeheader()
                     writer.writerows(csv_data)
 
