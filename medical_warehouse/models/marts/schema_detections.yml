@@ -1,0 +1,100 @@
+version: 2
+
+sources:
+    - name: raw
+      schema: raw
+      description: Raw data sources
+      tables:
+          - name: image_detections
+            description: Raw YOLO detection results loaded from CSV
+            columns:
+                - name: message_id
+                  description: Message ID from image filename
+                - name: channel_name
+                  description: Telegram channel name
+                - name: image_path
+                  description: Path to the image file
+                - name: detected_class
+                  description: YOLO detected object class
+                - name: confidence
+                  description: Detection confidence score (0.0-1.0)
+                - name: image_category
+                  description: Image category (promotional, product_display, lifestyle, other)
+                - name: processed_at
+                  description: Timestamp when detection was processed
+
+models:
+    - name: fct_image_detections
+      description: |
+          Fact table for image object detections.
+          Each row represents one detected object in an image.
+          Includes detection confidence, object class, and image category.
+      columns:
+          - name: detection_key
+            description: Surrogate key for the detection
+            tests:
+                - unique
+                - not_null
+
+          - name: message_id
+            description: Foreign key to fct_messages
+            tests:
+                - not_null
+                - relationships:
+                      to: ref('fct_messages')
+                      field: message_id
+
+          - name: channel_key
+            description: Foreign key to dim_channels
+            tests:
+                - not_null
+                - relationships:
+                      to: ref('dim_channels')
+                      field: channel_key
+
+          - name: date_key
+            description: Foreign key to dim_dates
+            tests:
+                - not_null
+                - relationships:
+                      to: ref('dim_dates')
+                      field: date_key
+
+          - name: detected_class
+            description: Object class detected by YOLO (e.g., 'person', 'bottle')
+            tests:
+                - not_null
+
+          - name: confidence
+            description: Detection confidence score (0.0-1.0)
+            tests:
+                - not_null
+                - dbt_utils.accepted_range:
+                      min_value: 0.0
+                      max_value: 1.0
+
+          - name: image_category
+            description: Image category (promotional, product_display, lifestyle, other)
+            tests:
+                - not_null
+                - accepted_values:
+                      values:
+                          [
+                              "promotional",
+                              "product_display",
+                              "lifestyle",
+                              "other",
+                          ]
+
+          - name: image_path
+            description: Path to the image file
+            tests:
+                - not_null
+
+          - name: processed_at
+            description: Timestamp when detection was processed
+
+          - name: loaded_at
+            description: Timestamp when data was loaded to warehouse
+            tests:
+                - not_null

@@ -157,6 +157,11 @@ ENV/
 env.bak/
 venv.bak/
 
+# YOLO Models
+*.pt
+yolov8*.pt
+runs/
+
 # Spyder project settings
 .spyderproject
 .spyproject
